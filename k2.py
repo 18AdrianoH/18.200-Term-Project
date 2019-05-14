@@ -88,3 +88,69 @@ for sa in SA:
 print()
 for coloring in colorings:
     print(coloring)
+
+"""
+\begin{lstlisting}
+def relevant_sets(n,k=2):
+    SA = set()
+    for i in range(1,n+1):
+        for j in range(i+1,n+1):
+            if i+j <= n:
+                SA.add(frozenset([i,j,i+j]))
+    return SA
+def fill_colorings(n):
+    pn = int(2**n)
+    out = []
+    for i in range(0,pn):
+        out.append([])
+    length = pn//2
+    frequency = 2
+    for index in range(0,n):
+        val = 0
+        for time in range(0,frequency):
+            val = (val + 1) % 2
+            for place in range(0,length):
+                out[length*time + place].append(val)
+                pass
+            pass
+        frequency *= 2
+        length = length//2
+        pass
+    return out
+def check_coloring(SA,coloring):
+    SA = list(SA)
+    color = coloring[SA[0]-1]
+    for i in range(1,len(SA)):
+        if coloring[SA[i]-1] != color:
+            return True
+    return False
+
+def check_coloring_exists(n,k=2):
+    colorings = fill_colorings(n)
+    SA = relevant_sets(n,k=k)
+    for coloring in colorings:
+        exists = True
+        for sa in SA:
+            exists = exists and check_coloring(sa,coloring)
+        if exists:
+            return True
+    return False
+    
+print(check_coloring_exists(3),3)
+print(check_coloring_exists(4),4)
+print(check_coloring_exists(5),5)
+print(check_coloring_exists(6),6)
+print(check_coloring_exists(7),7)
+print(check_coloring_exists(8),8)
+print(check_coloring_exists(9),9)
+
+SA = relevant_sets(9)
+colorings = fill_colorings(9)
+SA = [list(x) for x in SA]
+for sa in SA:
+    print(sa)
+print()
+for coloring in colorings:
+    print(coloring)
+\end{lstlisting}
+"""
